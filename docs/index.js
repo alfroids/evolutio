@@ -14,7 +14,7 @@ async function startApplication() {
   self.pyodide = await loadPyodide();
   self.pyodide.globals.set("sendPatch", sendPatch);
   console.log("Loaded pyodide!");
-  const data_archives = ['app.resources.zip'];
+  const data_archives = ['index.resources.zip'];
   for (const archive of data_archives) {
     let zipResponse = await fetch(archive);
     let zipBinary = await zipResponse.arrayBuffer();
