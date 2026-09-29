@@ -1,0 +1,41 @@
+evolution-web-app/
+├── README.md
+├── requirements.txt # panel, plotly, numpy — for local dev only
+│
+├── src/
+│   └── evolution_models/
+│       ├── __init__.py
+│       ├── one_locus.py # plot_one_locus_selection, plot_one_locus_evolution,
+│       │                # simulate_evolution, _one_locus_selection_step
+│       ├── two_loci.py # delta_field, find_equilibria, classify_equilibrium,
+│       │               # _build_two_loci_phase_portrait, plot_two_loci_selection,
+│       │               # plot_two_loci_selection_with_drift,
+│       │               # simulate_two_loci_drift_with_selection
+│       └── _generated_symbolic.py # the hand-transcribed delta_fA_fn/delta_fB_fn/jacobian_fn,
+│                              # with a comment noting they were derived via sympy
+│
+├── tools/
+│   └── derive_symbolic_model.py # the throwaway sympy script from Phase 1 — regenerates
+│                                # _generated_symbolic.py if you ever change the model.
+│                                # Not imported by the app; sympy/scipy live only in
+│                                # requirements-dev.txt, never in requirements.txt.
+│
+├── app.py # the Panel app: widgets, the Recompute button, warm-start
+│          # state, tabs — imports from evolution_models, no model
+│          # logic of its own
+│
+├── tabs/
+│   ├── __init__.py
+│   ├── one_locus_selection.py # build_tab() -> (title, layout)
+│   ├── one_locus_drift.py # build_tab() -> (title, layout)
+│   ├── two_loci_selection.py # build_tab() -> (title, layout)
+│   ├── two_loci_selection_drift.py # build_tab() -> (title, layout)
+│   └── ...
+│
+├── tests/
+│   └── test_two_loci.py # the numerical checks from Phase 1: hand-derived functions
+│                        # vs. the old sympy/scipy versions, kept as a regression test
+│
+└── docs/ # panel convert output — this is what GitHub Pages serves
+    ├── app.html
+    └── ... # generated js/wasm assets; not hand-edited, rebuilt by CI
