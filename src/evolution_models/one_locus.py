@@ -1,10 +1,3 @@
-"""
-One-locus allele-frequency models: deterministic selection, and a general
-stochastic simulator combining drift with optional selection, a
-population-size bottleneck, and migration between demes, in any
-combination.
-"""
-
 from __future__ import annotations
 
 import numpy as np
@@ -20,12 +13,6 @@ FloatArray = npt.NDArray[np.float64]
 def _one_locus_selection_step(
 	p: float | FloatArray, w: tuple[float, float, float]
 ) -> float | FloatArray:
-	"""One generation of viability selection at a single locus.
-
-	p: current frequency of allele A (scalar or array).
-	w: (w_AA, w_Aa, w_aa) fitness of genotypes AA, Aa, aa.
-	Returns the frequency of allele A in the next generation.
-	"""
 	w_AA, w_Aa, w_aa = w
 	q = 1.0 - p
 	numerator = p * p * w_AA + p * q * w_Aa
@@ -36,13 +23,6 @@ def _one_locus_selection_step(
 def plot_one_locus_selection(
 	T: int, f_A: float, w: tuple[float, float, float]
 ) -> go.Figure:
-	"""Deterministic one-locus selection trajectory.
-
-	T: number of generations to simulate.
-	f_A: starting frequency of allele A.
-	w: (w_AA, w_Aa, w_aa) fitness of genotypes AA, Aa, aa.
-	Returns a Plotly figure with the frequency of A and a over time.
-	"""
 	w_AA, w_Aa, w_aa = w
 	if T < 1:
 		raise ValueError("T must be at least 1.")
@@ -85,32 +65,6 @@ def simulate_evolution(
 	bottleneck: tuple[int, int, int] | None = None,
 	deterministic: bool = False,
 ) -> FloatArray:
-	"""General one-locus simulator: drift, with optional selection,
-	population-size bottleneck, and migration, combinable freely.
-
-	T: number of generations to simulate.
-	N: population size per deme. Pass a scalar for a constant size, or an
-	    array of length T + 1 for a time-varying size (e.g. a bottleneck
-	    window).
-	f_A: starting frequency of allele A, shared by every deme and replicate.
-	R: number of independent replicate populations per deme.
-	P: number of demes (subpopulations). P = 1 disables migration.
-	w: optional (w_AA, w_Aa, w_aa) genotype fitnesses. When given, viability
-	    selection is applied each generation before sampling. When None, no
-	    selection is applied.
-	m: migration rate - the fraction of each deme's next-generation
-	    population drawn from the mean frequency of all other demes instead
-	    of its own. Ignored when P == 1.
-	bottleneck: optional (generation_start, generation_end, N_bottleneck)
-	    window, inclusive, during which the population size is reduced to
-	    N_bottleneck. The window is shaded on the plot.
-	deterministic: if True, skip binomial sampling and propagate
-	    frequencies exactly (no drift, and no migration). Useful for
-	    computing a theoretical trajectory to compare against stochastic
-	    replicates.
-	Returns an array of shape (T + 1, P, R) with the frequency of A over
-	time, per deme and replicate.
-	"""
 	if T < 1:
 		raise ValueError("T must be at least 1.")
 	if R < 1 or P < 1:
@@ -129,9 +83,6 @@ def simulate_evolution(
 	else:
 		N_schedule = np.full(T + 1, N, dtype=int)
 
-	# N_schedule = (
-	# 	np.full(T + 1, N, dtype=int) if np.isscalar(N) else np.asarray(N, dtype=int)
-	# )
 	if N_schedule.shape != (T + 1,):
 		raise ValueError("N must be a scalar or an array of length T + 1.")
 
@@ -151,9 +102,6 @@ def simulate_evolution(
 		if P > 1 and m > 0.0:
 			n_migrants = round(m * N_schedule[t + 1])
 			other_deme_mean = (freq.sum(axis=0, keepdims=True) - freq) / (P - 1)
-			# Floating-point rounding can push a probability marginally
-			# outside [0, 1] (e.g. when averaging several near-fixed
-			# demes), which numpy's binomial rejects outright.
 			other_deme_mean = np.clip(other_deme_mean, 0.0, 1.0)
 			counts[t + 1] = RNG.binomial(
 				N_schedule[t + 1] - n_migrants, np.clip(freq, 0.0, 1.0)
