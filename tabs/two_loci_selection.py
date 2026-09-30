@@ -50,7 +50,7 @@ def build_tab():
 			"**Fitness matrix (AxB)**",
 			w_grid,
 			update_button,
-			width=320,
+			width=450,
 		),
 		pn.Column(
 			"### Two-loci selection",

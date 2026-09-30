@@ -1,3 +1,6 @@
+from .extra import (
+	plot_hardy_weinberg_equilibrium,
+)
 from .one_locus import (
 	plot_heterozygosity,
 	plot_one_locus_evolution,
@@ -18,6 +21,7 @@ __all__ = [
 	"classify_equilibrium",
 	"delta_field",
 	"find_equilibria",
+	"plot_hardy_weinberg_equilibrium",
 	"plot_heterozygosity",
 	"plot_one_locus_evolution",
 	"plot_one_locus_selection",

@@ -67,7 +67,7 @@ def build_tab():
 			f_A_slider,
 			R_slider,
 			update_button,
-			width=320,
+			width=450,
 		),
 		pn.Column(
 			"### One-locus drift",
