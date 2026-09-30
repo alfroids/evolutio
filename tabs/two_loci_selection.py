@@ -19,6 +19,15 @@ def build_tab():
 	w_grid = pn.GridBox(*[w for row in w_inputs for w in row], ncols=3)
 	update_button = pn.widgets.Button(name="Update plot", button_type="primary")
 
+	def fix_float_display(event):
+		for row in w_inputs:
+			for w in row:
+				w.value = round(w.value, 6)
+
+	for row in w_inputs:
+		for w in row:
+			w.param.watch(fix_float_display, "value")
+
 	def make_plot(w):
 		try:
 			fig, _ = plot_two_loci_selection(w=w)
