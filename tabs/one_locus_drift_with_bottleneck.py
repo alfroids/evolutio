@@ -10,7 +10,7 @@ from evolution_models import (
 
 def build_tab():
 	T_slider = pn.widgets.EditableIntSlider(
-		name="Generations (T)", start=1, end=500, step=1, value=100
+		name="Generations (T)", fixed_start=1, end=500, step=1, value=100
 	)
 	T_bottleneck_slider = pn.widgets.IntRangeSlider(
 		name="Bottleneck interval (start .. end)",
@@ -20,11 +20,11 @@ def build_tab():
 		value=(30, 60),
 	)
 	N_slider = pn.widgets.EditableIntSlider(
-		name="Population size (N)", start=1, end=500, step=1, value=50
+		name="Population size (N)", fixed_start=1, end=500, step=1, value=50
 	)
 	N_bottleneck_slider = pn.widgets.EditableIntSlider(
 		name="Population size during bottleneck",
-		start=1,
+		fixed_start=1,
 		end=100,
 		step=1,
 		value=5,
@@ -33,7 +33,7 @@ def build_tab():
 		name="Starting frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.25
 	)
 	R_slider = pn.widgets.EditableIntSlider(
-		name="Number of replicates", start=1, end=50, step=1, value=20
+		name="Number of replicates", fixed_start=1, end=50, step=1, value=20
 	)
 	update_button = pn.widgets.Button(name="Update plot", button_type="primary")
 

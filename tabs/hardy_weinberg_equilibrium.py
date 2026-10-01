@@ -5,7 +5,11 @@ from evolution_models import plot_hardy_weinberg_equilibrium
 
 def build_tab():
 	f_A_slider = pn.widgets.EditableFloatSlider(
-		name="Frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.5
+		name="Frequency of A (f_A)",
+		fixed_start=0.0,
+		fixed_end=1.0,
+		step=0.01,
+		value=0.5,
 	)
 	AA_indicator = pn.indicators.Number(
 		label="AA",
