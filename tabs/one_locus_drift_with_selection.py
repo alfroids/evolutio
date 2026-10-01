@@ -27,6 +27,15 @@ def build_tab():
 	w_grid = pn.GridBox(w_AA_input, w_Aa_input, w_aa_input, ncols=1)
 	update_button = pn.widgets.Button(name="Update plot", button_type="primary")
 
+	def fix_float_display(event):
+		w_AA_input.value = round(w_AA_input.value, 6)
+		w_Aa_input.value = round(w_Aa_input.value, 6)
+		w_aa_input.value = round(w_aa_input.value, 6)
+
+	w_AA_input.param.watch(fix_float_display, "value")
+	w_Aa_input.param.watch(fix_float_display, "value")
+	w_aa_input.param.watch(fix_float_display, "value")
+
 	def make_plots(T, N, f_A, R, w_AA, w_Aa, w_aa):
 		try:
 			sims = simulate_evolution(T=T, N=N, f_A=f_A, R=R, w=(w_AA, w_Aa, w_aa))
