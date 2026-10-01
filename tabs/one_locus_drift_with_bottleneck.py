@@ -25,15 +25,15 @@ def build_tab():
 	N_bottleneck_slider = pn.widgets.EditableIntSlider(
 		name="Population size during bottleneck",
 		start=1,
-		end=500,
+		end=100,
 		step=1,
 		value=5,
 	)
 	f_A_slider = pn.widgets.EditableFloatSlider(
-		name="Starting frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.1
+		name="Starting frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.25
 	)
 	R_slider = pn.widgets.EditableIntSlider(
-		name="Number of replicates", start=1, end=25, step=1, value=10
+		name="Number of replicates", start=1, end=50, step=1, value=20
 	)
 	update_button = pn.widgets.Button(name="Update plot", button_type="primary")
 

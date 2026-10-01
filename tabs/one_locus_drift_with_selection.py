@@ -10,16 +10,16 @@ from evolution_models import (
 
 def build_tab():
 	T_slider = pn.widgets.EditableIntSlider(
-		name="Generations (T)", start=1, end=500, step=1, value=50
+		name="Generations (T)", start=1, end=500, step=1, value=100
 	)
 	N_slider = pn.widgets.EditableIntSlider(
 		name="Population size (N)", start=1, end=500, step=1, value=50
 	)
 	f_A_slider = pn.widgets.EditableFloatSlider(
-		name="Starting frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.1
+		name="Starting frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.25
 	)
 	R_slider = pn.widgets.EditableIntSlider(
-		name="Number of replicates", start=1, end=25, step=1, value=10
+		name="Number of replicates", start=1, end=50, step=1, value=20
 	)
 	w_AA_input = pn.widgets.FloatInput(name="w_AA", value=1.0, start=0.0, width=95)
 	w_Aa_input = pn.widgets.FloatInput(name="w_Aa", value=0.9, start=0.0, width=95)

@@ -5,16 +5,42 @@ from evolution_models import plot_two_loci_selection
 
 
 def build_tab():
-	A_genos = ("aa", "Aa", "AA")
-	B_genos = ("BB", "Bb", "bb")
+	# A_genos = ("aa", "Aa", "AA")
+	# B_genos = ("BB", "Bb", "bb")
 	w_inputs = [
 		[
 			pn.widgets.FloatInput(
-				name=f"w_{A_genos[i]}{B_genos[j]}", value=1.0, start=0.0, width=95
-			)
-			for i in range(3)
-		]
-		for j in range(3)
+				name="w_aaBB", value=1.0, start=0.0, step=0.05, width=95
+			),
+			pn.widgets.FloatInput(
+				name="w_AaBB", value=1.1, start=0.0, step=0.05, width=95
+			),
+			pn.widgets.FloatInput(
+				name="w_AABB", value=1.0, start=0.0, step=0.05, width=95
+			),
+		],
+		[
+			pn.widgets.FloatInput(
+				name="w_aaBb", value=0.9, start=0.0, step=0.05, width=95
+			),
+			pn.widgets.FloatInput(
+				name="w_AaBb", value=0.8, start=0.0, step=0.05, width=95
+			),
+			pn.widgets.FloatInput(
+				name="w_AABb", value=1.0, start=0.0, step=0.05, width=95
+			),
+		],
+		[
+			pn.widgets.FloatInput(
+				name="w_aabb", value=0.9, start=0.0, step=0.05, width=95
+			),
+			pn.widgets.FloatInput(
+				name="w_Aabb", value=1.0, start=0.0, step=0.05, width=95
+			),
+			pn.widgets.FloatInput(
+				name="w_AAbb", value=1.1, start=0.0, step=0.05, width=95
+			),
+		],
 	]
 	w_grid = pn.GridBox(*[w for row in w_inputs for w in row], ncols=3)
 	update_button = pn.widgets.Button(name="Update plot", button_type="primary")

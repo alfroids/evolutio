@@ -5,10 +5,10 @@ from evolution_models import plot_one_locus_selection
 
 def build_tab():
 	T_slider = pn.widgets.EditableIntSlider(
-		name="Generations (T)", start=1, end=500, step=1, value=50
+		name="Generations (T)", start=1, end=500, step=1, value=100
 	)
 	f_A_slider = pn.widgets.EditableFloatSlider(
-		name="Starting frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.1
+		name="Starting frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.25
 	)
 	w_AA_input = pn.widgets.FloatInput(name="w_AA", value=1.0, start=0.0, width=95)
 	w_Aa_input = pn.widgets.FloatInput(name="w_Aa", value=0.9, start=0.0, width=95)
