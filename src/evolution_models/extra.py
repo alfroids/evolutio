@@ -44,6 +44,7 @@ def plot_hardy_weinberg_equilibrium(
 			x=ind_fA,
 			line_width=2,
 			line_color="black",
+			line_dash="dash",
 		)
 
 	fig.update_layout(

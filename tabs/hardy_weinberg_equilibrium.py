@@ -14,7 +14,7 @@ def build_tab():
 	AA_indicator = pn.indicators.Number(
 		label="AA",
 		value=0.25,
-		format="{value:.4f}",
+		format="{value:.6g}",
 		default_color="red",
 		font_size="24pt",
 		title_size="16pt",
@@ -22,7 +22,7 @@ def build_tab():
 	Aa_indicator = pn.indicators.Number(
 		label="Aa",
 		value=0.5,
-		format="{value:.4f}",
+		format="{value:.6g}",
 		default_color="green",
 		font_size="24pt",
 		title_size="16pt",
@@ -30,7 +30,7 @@ def build_tab():
 	aa_indicator = pn.indicators.Number(
 		label="aa",
 		value=0.25,
-		format="{value:.4f}",
+		format="{value:.6g}",
 		default_color="blue",
 		font_size="24pt",
 		title_size="16pt",

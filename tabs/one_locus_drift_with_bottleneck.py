@@ -15,7 +15,7 @@ def build_tab():
 	T_bottleneck_slider = pn.widgets.IntRangeSlider(
 		name="Bottleneck interval (start .. end)",
 		start=1,
-		end=500,
+		end=100,
 		step=1,
 		value=(30, 60),
 	)
@@ -30,12 +30,33 @@ def build_tab():
 		value=5,
 	)
 	f_A_slider = pn.widgets.EditableFloatSlider(
-		name="Starting frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.25
+		name="Starting frequency of A (f_A)",
+		start=0.0,
+		end=1.0,
+		step=0.01,
+		value=0.2,
+		format="0.[00000]",
 	)
 	R_slider = pn.widgets.EditableIntSlider(
 		name="Number of replicates", fixed_start=1, end=50, step=1, value=20
 	)
 	update_button = pn.widgets.Button(name="Update plot", button_type="primary")
+
+	def update_f_A_step(event):
+		s = 1 / event.new
+		v = f_A_slider.value
+		f_A_slider.step = s
+		f_A_slider.value = round(v / s) * s
+
+	N_slider.param.watch(update_f_A_step, "value")
+
+	def update_T_bottleneck_end(event):
+		e = event.new
+		vs, ve = T_bottleneck_slider.value
+		T_bottleneck_slider.end = e
+		T_bottleneck_slider.value = (min(vs, e), min(ve, e))
+
+	T_slider.param.watch(update_T_bottleneck_end, "value")
 
 	def make_plots(T, N, f_A, R, bottleneck):
 		try:

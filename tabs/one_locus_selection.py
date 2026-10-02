@@ -12,22 +12,28 @@ def build_tab():
 		fixed_start=0.0,
 		fixed_end=1.0,
 		step=0.01,
-		value=0.25,
+		value=0.2,
 	)
-	w_AA_input = pn.widgets.FloatInput(name="w_AA", value=1.0, start=0.0, width=95)
-	w_Aa_input = pn.widgets.FloatInput(name="w_Aa", value=0.9, start=0.0, width=95)
-	w_aa_input = pn.widgets.FloatInput(name="w_aa", value=0.8, start=0.0, width=95)
+	w_AA_input = pn.widgets.FloatInput(
+		name="w_AA", value=1.0, start=0.0, width=95, format="0.[00000]"
+	)
+	w_Aa_input = pn.widgets.FloatInput(
+		name="w_Aa", value=0.9, start=0.0, width=95, format="0.[00000]"
+	)
+	w_aa_input = pn.widgets.FloatInput(
+		name="w_aa", value=0.8, start=0.0, width=95, format="0.[00000]"
+	)
 	w_grid = pn.GridBox(w_AA_input, w_Aa_input, w_aa_input, ncols=1)
 	update_button = pn.widgets.Button(name="Update plot", button_type="primary")
 
-	def fix_float_display(event):
-		w_AA_input.value = round(w_AA_input.value, 6)
-		w_Aa_input.value = round(w_Aa_input.value, 6)
-		w_aa_input.value = round(w_aa_input.value, 6)
+	# def fix_float_display(event):
+	# 	w_AA_input.value = round(w_AA_input.value, 6)
+	# 	w_Aa_input.value = round(w_Aa_input.value, 6)
+	# 	w_aa_input.value = round(w_aa_input.value, 6)
 
-	w_AA_input.param.watch(fix_float_display, "value")
-	w_Aa_input.param.watch(fix_float_display, "value")
-	w_aa_input.param.watch(fix_float_display, "value")
+	# w_AA_input.param.watch(fix_float_display, "value")
+	# w_Aa_input.param.watch(fix_float_display, "value")
+	# w_aa_input.param.watch(fix_float_display, "value")
 
 	def make_plot(T, f_A, w_AA, w_Aa, w_aa):
 		try:

@@ -16,25 +16,44 @@ def build_tab():
 		name="Population size (N)", fixed_start=1, end=500, step=1, value=50
 	)
 	f_A_slider = pn.widgets.EditableFloatSlider(
-		name="Starting frequency of A (f_A)", start=0.0, end=1.0, step=0.01, value=0.25
+		name="Starting frequency of A (f_A)",
+		start=0.0,
+		end=1.0,
+		step=0.01,
+		value=0.2,
+		format="0.[00000]",
 	)
 	R_slider = pn.widgets.EditableIntSlider(
 		name="Number of replicates", fixed_start=1, end=50, step=1, value=20
 	)
-	w_AA_input = pn.widgets.FloatInput(name="w_AA", value=1.0, start=0.0, width=95)
-	w_Aa_input = pn.widgets.FloatInput(name="w_Aa", value=0.9, start=0.0, width=95)
-	w_aa_input = pn.widgets.FloatInput(name="w_aa", value=0.8, start=0.0, width=95)
+	w_AA_input = pn.widgets.FloatInput(
+		name="w_AA", value=1.0, start=0.0, width=95, format="0.[00000]"
+	)
+	w_Aa_input = pn.widgets.FloatInput(
+		name="w_Aa", value=0.9, start=0.0, width=95, format="0.[00000]"
+	)
+	w_aa_input = pn.widgets.FloatInput(
+		name="w_aa", value=0.8, start=0.0, width=95, format="0.[00000]"
+	)
 	w_grid = pn.GridBox(w_AA_input, w_Aa_input, w_aa_input, ncols=1)
 	update_button = pn.widgets.Button(name="Update plot", button_type="primary")
 
-	def fix_float_display(event):
-		w_AA_input.value = round(w_AA_input.value, 6)
-		w_Aa_input.value = round(w_Aa_input.value, 6)
-		w_aa_input.value = round(w_aa_input.value, 6)
+	def update_f_A_step(event):
+		s = 1 / event.new
+		v = f_A_slider.value
+		f_A_slider.step = s
+		f_A_slider.value = round(v / s) * s
 
-	w_AA_input.param.watch(fix_float_display, "value")
-	w_Aa_input.param.watch(fix_float_display, "value")
-	w_aa_input.param.watch(fix_float_display, "value")
+	N_slider.param.watch(update_f_A_step, "value")
+
+	# def fix_float_display(event):
+	# 	w_AA_input.value = round(w_AA_input.value, 6)
+	# 	w_Aa_input.value = round(w_Aa_input.value, 6)
+	# 	w_aa_input.value = round(w_aa_input.value, 6)
+
+	# w_AA_input.param.watch(fix_float_display, "value")
+	# w_Aa_input.param.watch(fix_float_display, "value")
+	# w_aa_input.param.watch(fix_float_display, "value")
 
 	def make_plots(T, N, f_A, R, w_AA, w_Aa, w_aa):
 		try:

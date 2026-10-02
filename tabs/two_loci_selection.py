@@ -10,49 +10,94 @@ def build_tab():
 	w_inputs = [
 		[
 			pn.widgets.FloatInput(
-				name="w_aaBB", value=1.0, start=0.0, step=0.05, width=95
+				name="w_aaBB",
+				value=1.0,
+				start=0.0,
+				step=0.05,
+				width=95,
+				format="0.[00000]",
 			),
 			pn.widgets.FloatInput(
-				name="w_AaBB", value=1.1, start=0.0, step=0.05, width=95
+				name="w_AaBB",
+				value=1.1,
+				start=0.0,
+				step=0.05,
+				width=95,
+				format="0.[00000]",
 			),
 			pn.widgets.FloatInput(
-				name="w_AABB", value=1.0, start=0.0, step=0.05, width=95
+				name="w_AABB",
+				value=1.0,
+				start=0.0,
+				step=0.05,
+				width=95,
+				format="0.[00000]",
 			),
 		],
 		[
 			pn.widgets.FloatInput(
-				name="w_aaBb", value=0.9, start=0.0, step=0.05, width=95
+				name="w_aaBb",
+				value=0.9,
+				start=0.0,
+				step=0.05,
+				width=95,
+				format="0.[00000]",
 			),
 			pn.widgets.FloatInput(
-				name="w_AaBb", value=0.8, start=0.0, step=0.05, width=95
+				name="w_AaBb",
+				value=0.8,
+				start=0.0,
+				step=0.05,
+				width=95,
+				format="0.[00000]",
 			),
 			pn.widgets.FloatInput(
-				name="w_AABb", value=1.0, start=0.0, step=0.05, width=95
+				name="w_AABb",
+				value=1.0,
+				start=0.0,
+				step=0.05,
+				width=95,
+				format="0.[00000]",
 			),
 		],
 		[
 			pn.widgets.FloatInput(
-				name="w_aabb", value=0.9, start=0.0, step=0.05, width=95
+				name="w_aabb",
+				value=0.9,
+				start=0.0,
+				step=0.05,
+				width=95,
+				format="0.[00000]",
 			),
 			pn.widgets.FloatInput(
-				name="w_Aabb", value=1.0, start=0.0, step=0.05, width=95
+				name="w_Aabb",
+				value=1.0,
+				start=0.0,
+				step=0.05,
+				width=95,
+				format="0.[00000]",
 			),
 			pn.widgets.FloatInput(
-				name="w_AAbb", value=1.1, start=0.0, step=0.05, width=95
+				name="w_AAbb",
+				value=1.1,
+				start=0.0,
+				step=0.05,
+				width=95,
+				format="0.[00000]",
 			),
 		],
 	]
 	w_grid = pn.GridBox(*[w for row in w_inputs for w in row], ncols=3)
 	update_button = pn.widgets.Button(name="Update plot", button_type="primary")
 
-	def fix_float_display(event):
-		for row in w_inputs:
-			for w in row:
-				w.value = round(w.value, 6)
+	# def fix_float_display(event):
+	# 	for row in w_inputs:
+	# 		for w in row:
+	# 			w.value = round(w.value, 6)
 
-	for row in w_inputs:
-		for w in row:
-			w.param.watch(fix_float_display, "value")
+	# for row in w_inputs:
+	# 	for w in row:
+	# 		w.param.watch(fix_float_display, "value")
 
 	def make_plot(w):
 		try:
